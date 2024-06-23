@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Table Image Classification</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <div class="message-box">
+            <p>This model is fine-tuned on a custom dataset using Google's ViT-base as the base. Due to constraints on Colab, we trained this model for just 8 epochs and achieved 96.6% testing accuracy and 98% validation accuracy..</p>
+            <p><strong>Disclaimer:</strong> This model is trained on table data only, so if you upload any random image, the results may be incorrect.</p>
+        </div>
+        <div class="content">
+            <div class="split left">
+                <h1>Upload Image</h1>
+                <form action="/" method="post" enctype="multipart/form-data">
+                    <input type="file" name="file" id="file" class="inputfile" onchange="displayFileName()" />
+                    <label for="file">Choose an image</label>
+                    <span id="file-name"></span>
+                    <button type="submit">Submit</button>
+                </form>
+            </div>
+            <div class="split right">
+                {% if filename %}
+                <h1>Classification Result</h1>
+                <div class="result">
+                    <img src="{{ url_for('uploaded_file', filename=filename) }}" alt="Uploaded Image" class="uploaded-image">
+                    <p>Prediction: {{ prediction.label }} (Class: {{ prediction.class }})</p>
+                </div>
+                {% else %}
+                <div class="placeholder">
+                    <p>No image uploaded yet</p>
+                    <p>No result to show</p>
+                </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function displayFileName() {
+            var fileInput = document.getElementById('file');
+            var fileName = document.getElementById('file-name');
+            fileName.textContent = fileInput.files[0].name;
+        }
+    </script>
+</body>
+</html>

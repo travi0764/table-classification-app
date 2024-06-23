@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Table Image Classification Result</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <div class="message">
+            <p>This model is fine-tuned on a custom dataset using Google's ViT-base as the base. Due to constraints on Colab, we trained this model for just 5 epochs and achieved 96% testing accuracy.</p>
+            <p><strong>Disclaimer:</strong> This model is trained on table data only, so if you upload any random image, the results may be incorrect.</p>
+        </div>
+        <h1>Table Image Classification Result</h1>
+        <div class="result">
+            <img src="{{ url_for('uploaded_file', filename=filename) }}" alt="Uploaded Image" class="uploaded-image">
+            <p>Prediction: {{ prediction.label }} (Class: {{ prediction.class }})</p>
+        </div>
+        <a href="/">Upload another image</a>
+    </div>
+</body>
+</html>
